@@ -26,12 +26,12 @@ Hız, Atiklik ve Çeviklik prensiplerine dayanan oyunumuz multiplayer deathmatch
 
 ## Ürün Özellikleri
 
-3D
-First person
-Silah ve Ekipman Seçimi
-Taktiksel Savaş
-Hızlı ve Tempolu Oyun Deneyimi
-Atik Düşünme ve Taktiksel Oynanış
+- 3D
+- First person Shooter
+- Silah ve Ekipman Seçimi
+- Taktiksel Savaş
+- Hızlı ve Tempolu Oyun Deneyimi
+- Atik Düşünme ve Taktiksel Oynanış
 
 
 ## Hedef Kitle
@@ -43,7 +43,7 @@ Atik Düşünme ve Taktiksel Oynanış
 
 ## Juriye Not
 
-Takım içi iletişimsizlik nedeni ile sprint 1'de birşey yapılamadı.
+- Takım içi iletişimsizlik nedeni ile sprint 1'de birşey yapılamadı.
 
 
 ---
@@ -80,15 +80,16 @@ Takım içi iletişimsizlik nedeni ile sprint 1'de birşey yapılamadı.
 - **Ürün Durumu**: Ekran görüntüleri:
   Geliştiriliyor
 - **Sprint Review**: 
-Alınan kararlar:
-Daha fazla toplantı yapma ve iletişim kurma.
-Oyun fikri daha ayrıntılı geliştirilecek.
-Oyunu geliştirme sürecine başlamak.
-Sprint Review katılımcıları:
-- Emirhan Özger
-- Şaban Enes Burma
-- Cengizhan Dursun
-- Hüseyin Gökmen
+- Alınan kararlar:
+  - Daha fazla toplantı yapma ve iletişim kurma.
+  - Oyun fikri daha ayrıntılı geliştirilecek.
+  - Oyunu geliştirme sürecine başlamak.
+
+- **Sprint Review katılımcıları**:
+  - Emirhan Özger
+  - Şaban Enes Burma
+  - Cengizhan Dursun
+  - Hüseyin Gökmen
 
 - **Sprint Retrospective:**
   - Roller ile ilgili düzenleme yapılmıştır.
@@ -129,13 +130,14 @@ Sprint Review katılımcıları:
 ![Backlog 1](https://www.hizliresim.com/20exy5o) 
 
 
-- **Ürün Durumu**: Geliştirme aşamasında,network bağlandı ve karakter biraz yapılandı, görsel durum yok.
+-- **Ürün Durumu**: Geliştirme aşamasında,network bağlandı ve karakter biraz yapılandı.
+  [Ürün Durumu](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-2/urundurumu.png)
 - **Sprint Review**: 
 Alınan kararlar:
 - Çok daha sık iletişim kurulması gerekildiği.
 - Görev dağılımının yapılması.
 - Proje içinde yardımlar.
-Sprint Review katılımcıları:Emirhan Özger,Şaban Enes Burma,Cengizhan Dursun,Hüseyin Gökmen,Melahat Merve Bahar
+- **Sprint Review katılımcıları**:Emirhan Özger,Şaban Enes Burma,Cengizhan Dursun,Hüseyin Gökmen,Melahat Merve Bahar
 
 
 - **Sprint Retrospective:**
