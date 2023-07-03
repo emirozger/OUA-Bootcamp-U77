@@ -131,7 +131,7 @@ Hız, Atiklik ve Çeviklik prensiplerine dayanan oyunumuz multiplayer deathmatch
 
 
 -- **Ürün Durumu**: Geliştirme aşamasında,network bağlandı ve karakter biraz yapılandı.
-  [Ürün Durumu](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-2/sprint2durum.png)
+  [Ürün Durumu](https://github.com/emirozger/OUA-Bootcamp-U77/blob/315dfa3465a4af8ac96a15abf8acb22c8bba0f93/ProjectManagement/Sprint-2/sprint2durum.png)
 - **Sprint Review**: 
 Alınan kararlar:
 - Çok daha sık iletişim kurulması gerekildiği.
