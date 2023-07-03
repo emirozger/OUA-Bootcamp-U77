@@ -54,20 +54,20 @@ Takım içi iletişimsizlik nedeni ile sprint 1'de birşey yapılamadı.
 
 
 - **Puan tamamlama mantığı**: Toplamda proje boyunca tamamlanması gereken 310 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
-Oyun Fikri Planlaması 10 puan : 4
-Oyun Hikayesi 10 puan : 0
-Mekanik düşünceleri 10 puan : 0
-GDD Yazımı 10 puan : 0
-Oyun Tasarımı 20 puan : 0
-Level Design 20 puan : 0
-Karakter Kontrolleri 30 puan: ilerde yapılacak
-Karakter model ve animasyonları 40 puan : ilerde yapılacak
-Multiplayer Network 30 puan : ilerde yapılacak
-VFX 20 puan : ilerde yapılacak
-SFX 15 puan : ilerde yapılacak
-Post Processing 25 puan : ilerde yapılacak
-Optimizasyon 30 puan : ilerde yapılacak
-Test ve Hata Ayıklama 50 puan : ilde yapılacak
+- Oyun Fikri Planlaması 10 puan : 4
+- Oyun Hikayesi 10 puan : 0
+- Mekanik düşünceleri 10 puan : 0
+- GDD Yazımı 10 puan : 0
+- Oyun Tasarımı 20 puan : 0
+- Level Design 20 puan : 0
+- Karakter Kontrolleri 30 puan: ilerde yapılacak
+- Karakter model ve animasyonları 40 puan : ilerde yapılacak
+- Multiplayer Network 30 puan : ilerde yapılacak
+- VFX 20 puan : ilerde yapılacak
+- SFX 15 puan : ilerde yapılacak
+- Post Processing 25 puan : ilerde yapılacak
+- Optimizasyon 30 puan : ilerde yapılacak
+- Test ve Hata Ayıklama 50 puan : ilde yapılacak
 
 
 - **Daily Scrum**: Daily Scrum toplantılarının discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
@@ -107,20 +107,20 @@ Sprint Review katılımcıları:
 - **Sprint içinde tamamlanması tahmin edilen puan**: 78/110 Puan
 
 - **Puan tamamlama mantığı**: 2. Sprint için yapılması gereken puan : 110
-Oyun Fikri Planlaması 10 puan : 8
-Oyun Hikayesi 10 puan : 0
-Mekanik düşünceleri 10 puan : 8
-GDD Yazımı 10 puan : 0
-Oyun Tasarımı 20 puan : 7
-Level Design 20 puan : 0
-Karakter Kontrolleri 30 puan: 25
-Karakter model ve animasyonları 40 puan : 5
-Multiplayer Network 30 puan : 25
-VFX 20 puan : ilerde yapılacak
-SFX 15 puan : ilerde yapılacak
-Post Processing 25 puan : ilerde yapılacak
-Optimizasyon 30 puan : ilerde yapılacak
-Test ve Hata Ayıklama 50 puan : ilde yapılacak
+- Oyun Fikri Planlaması 10 puan : 8
+- Oyun Hikayesi 10 puan : 0
+- Mekanik düşünceleri 10 puan : 8
+- GDD Yazımı 10 puan : 0
+- Oyun Tasarımı 20 puan : 7
+- Level Design 20 puan : 0
+- Karakter Kontrolleri 30 puan: 25
+- Karakter model ve animasyonları 40 puan : 5
+- Multiplayer Network 30 puan : 25
+- VFX 20 puan : ilerde yapılacak
+- SFX 15 puan : ilerde yapılacak
+- Post Processing 25 puan : ilerde yapılacak
+- Optimizasyon 30 puan : ilerde yapılacak
+- Test ve Hata Ayıklama 50 puan : ilde yapılacak
 
 - **Daily Scrum**:  Daily Scrum toplantılarının discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
 -  [Sprint 2 Daily Scrum Chats](https://i.hizliresim.com/asprvxm.png)
