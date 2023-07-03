@@ -71,10 +71,10 @@ Hız, Atiklik ve Çeviklik prensiplerine dayanan oyunumuz multiplayer deathmatch
 
 
 - **Daily Scrum**: Daily Scrum toplantılarının discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
-- [Sprint 1 Daily Scrum Chats](i.hizliresim.com/88koxnu.png)
+- [Sprint 1 Daily Scrum Chats](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-1/sprint1discord.png)
 
 - **Sprint board update**: Sprint board screenshotları: 
-![Backlog 1](https://www.hizliresim.com/fm2tgh8) 
+![Backlog 1](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-1/sprint1trello.png) 
 
 
 - **Ürün Durumu**: Ekran görüntüleri:
@@ -124,14 +124,14 @@ Hız, Atiklik ve Çeviklik prensiplerine dayanan oyunumuz multiplayer deathmatch
 - Test ve Hata Ayıklama 50 puan : ilde yapılacak
 
 - **Daily Scrum**:  Daily Scrum toplantılarının discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
--  [Sprint 2 Daily Scrum Chats](https://i.hizliresim.com/asprvxm.png)
+-  [Sprint 2 Daily Scrum Chats](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-2/sprint2discord.png)
 
 - **Sprint board update**: Sprint board screenshotları: 
-![Backlog 1](https://www.hizliresim.com/20exy5o) 
+![Backlog 1](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-2/sprint2trello.png) 
 
 
 -- **Ürün Durumu**: Geliştirme aşamasında,network bağlandı ve karakter biraz yapılandı.
-  [Ürün Durumu](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-2/urundurumu.png)
+  [Ürün Durumu](https://github.com/emirozger/OUA-Bootcamp-U77/blob/033fb40edc9c61eb9f356e8dcee5c1cebacf1e0c/ProjectManagement/Sprint-2/sprint2durum.png)
 - **Sprint Review**: 
 Alınan kararlar:
 - Çok daha sık iletişim kurulması gerekildiği.
