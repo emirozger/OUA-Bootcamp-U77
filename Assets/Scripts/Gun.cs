@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public float damage = 100f;
+    public int damage = 10;
     public float range = 100f;
     public float impactForce = 30f;
     public float fireRate = 15f;
@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
-
+    public GameObject dieEffect;
     private void Update()
     {
         if (Input.GetMouseButton(0) && Time.time >= nextTimeToFire)
@@ -30,10 +30,14 @@ public class Gun : MonoBehaviour
         {
             muzzleFlash.Play();
             Debug.Log(hit.transform.name);
-            Target target = hit.transform.GetComponent<Target>();
-            if (target != null)
+            Enemy enemy = hit.transform.GetComponent<Enemy>();
+            if (enemy != null)
             {
-                target.TakeDamage(damage);
+                enemy.TakeDamage(damage);
+                if (enemy.health <= 0)
+                {
+                    GameObject dieEffectGO = Instantiate(dieEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                }
             }
             if (hit.rigidbody != null)
             {
