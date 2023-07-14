@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovementAdvanced : MonoBehaviour
 {
+
+    #region veriables
     [Header("Movement")]
     private float moveSpeed;
     private float desiredMoveSpeed;
@@ -31,6 +33,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float crouchSpeed;
     public float crouchYScale;
     private float startYScale;
+
+    [Header("Dashing")]
+    public float dashForce;
+    public KeyCode dashKey = KeyCode.E;
+    public float dashCooldown = 3f;
+
+    private bool dashing;
+    private Vector3 dashDirection;
+    private bool dashReady = true;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -84,27 +95,46 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     public bool freeze;
     public bool unlimited;
-    
+
     public bool restricted;
+
+    #endregion
     private void Start()
     {
         climbingScriptDone = GetComponent<ClimbingDone>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
         readyToJump = true;
-
         startYScale = transform.localScale.y;
     }
 
     private void Update()
     {
-     
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
         SpeedControl();
         StateHandler();
+
+        if (Input.GetKeyDown(dashKey) && grounded)
+        {
+            if (!dashing && dashReady)
+            {
+                DashForward();
+                if (Input.GetKey(KeyCode.A))
+                {
+                    DashLeft();
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    DashRight();
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    DashBackward();
+                }
+            }
+        }
 
         if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
             rb.drag = groundDrag;
@@ -115,14 +145,58 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        if (dashing)
+        {
+            rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+        }
+    }
+    private void DashLeft()
+    {
+        dashDirection = -orientation.right;
+        StartDash();
     }
 
+    private void DashRight()
+    {
+        dashDirection = orientation.right;
+        StartDash();
+    }
+
+    private void DashBackward()
+    {
+        dashDirection = -orientation.forward;
+        StartDash();
+    }
+    private void DashForward()
+    {
+        dashDirection = orientation.forward;
+        StartDash();
+    }
+
+    private void StartDash()
+    {
+        dashDirection.y = 0f;
+        dashDirection.Normalize();
+        dashing = true;
+        dashReady = false;
+        Invoke(nameof(StopDash), 0.5f);
+        Invoke(nameof(ResetDashCooldown), dashCooldown);
+    }
+    private void ResetDashCooldown()
+    {
+        dashReady = true;
+    }
+
+    private void StopDash()
+    {
+        dashing = false;
+    }
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-  
+
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
@@ -151,54 +225,54 @@ public class PlayerMovementAdvanced : MonoBehaviour
     bool keepMomentum;
     private void StateHandler()
     {
-       
+
         if (freeze)
         {
-            
+
             state = MovementState.freeze;
             rb.velocity = Vector3.zero;
             desiredMoveSpeed = 0f;
         }
 
-       
+
         else if (unlimited)
         {
-            
+
             state = MovementState.unlimited;
             desiredMoveSpeed = 999f;
         }
 
-       
+
         else if (vaulting)
         {
-            
+
             state = MovementState.vaulting;
             desiredMoveSpeed = vaultSpeed;
         }
 
-      
+
         else if (climbing)
         {
-            cam.DoFov(90,1);
+            cam.DoFov(90, 1);
             state = MovementState.climbing;
             desiredMoveSpeed = climbSpeed;
         }
 
-       
+
         else if (wallrunning)
         {
-            cam.DoFov(90,1);
+            cam.DoFov(90, 1);
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
         }
 
-       
+
         else if (sliding)
         {
-            cam.DoFov(90,1);
+            cam.DoFov(90, 1);
             state = MovementState.sliding;
 
-            
+
             if (OnSlope() && rb.velocity.y < 0.1f)
             {
                 desiredMoveSpeed = slideSpeed;
@@ -209,31 +283,31 @@ public class PlayerMovementAdvanced : MonoBehaviour
                 desiredMoveSpeed = sprintSpeed;
         }
 
-      
+
         else if (crouching)
         {
-            cam.DoFov(70,1);
+            cam.DoFov(70, 1);
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
 
-      
+
         else if (grounded && Input.GetKey(sprintKey))
         {
-            cam.DoFov(90,1);
+            cam.DoFov(90, 1);
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
         }
 
-        
+
         else if (grounded)
         {
-            cam.DoFov(70,1);
+            cam.DoFov(70, 1);
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
         }
 
-      
+
         else
         {
             state = MovementState.air;
@@ -259,13 +333,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         lastDesiredMoveSpeed = desiredMoveSpeed;
 
-        
+
         if (Mathf.Abs(desiredMoveSpeed - moveSpeed) < 0.1f) keepMomentum = false;
     }
 
     private IEnumerator SmoothlyLerpMoveSpeed()
     {
-       
+
         float time = 0;
         float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
         float startValue = moveSpeed;
@@ -296,10 +370,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (climbingScriptDone.exitingWall) return;
         if (restricted) return;
 
-       
+
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-     
+
         if (OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
@@ -308,28 +382,28 @@ public class PlayerMovementAdvanced : MonoBehaviour
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
-     
+
         else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
-      
+
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
-      
-        if(!wallrunning) rb.useGravity = !OnSlope();
+
+        if (!wallrunning) rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
     {
-       
+
         if (OnSlope() && !exitingSlope)
         {
             if (rb.velocity.magnitude > moveSpeed)
                 rb.velocity = rb.velocity.normalized * moveSpeed;
         }
 
-     
+
         else
         {
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -346,7 +420,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         exitingSlope = true;
 
-      
+
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
