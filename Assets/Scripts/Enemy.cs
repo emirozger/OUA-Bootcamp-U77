@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,6 +7,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public event Action<Enemy> OnDeath;
 
     public Transform player;
 
@@ -13,17 +15,18 @@ public class Enemy : MonoBehaviour
 
     public float health;
 
-  
+
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
 
-   
+
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public GameObject projectile;
+    public GameObject projectilePrefab;
 
-   
+
+
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
@@ -31,6 +34,7 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("PlayerObj").transform;
         agent = GetComponent<NavMeshAgent>();
+
     }
 
     private void Update()
@@ -57,8 +61,8 @@ public class Enemy : MonoBehaviour
     }
     private void SearchWalkPoint()
     {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        float randomZ = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
+        float randomX = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
@@ -79,18 +83,21 @@ public class Enemy : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            GameObject projectiles = Instantiate(projectile, transform.position, Quaternion.identity);
-            Rigidbody rb = projectiles.GetComponent<Rigidbody>();
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.LookRotation(transform.forward));
+            Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 48f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 2f, ForceMode.Impulse);
+
             
-            Destroy(projectiles,2.5f);
+
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
+
+
     private void ResetAttack()
     {
         alreadyAttacked = false;
@@ -100,10 +107,16 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health <= 0)
+        {
+            Die(); 
+        }
+            
     }
-    private void DestroyEnemy()
+    private void Die()
     {
+        OnDeath?.Invoke(this); // Ölüm olayını tetikle
+
         Destroy(gameObject);
     }
 
