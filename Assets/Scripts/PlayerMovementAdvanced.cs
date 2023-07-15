@@ -71,6 +71,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    public AudioSource source;
+    public AudioClip[] clips;
 
     public MovementState state;
     public enum MovementState
@@ -103,6 +105,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         climbingScriptDone = GetComponent<ClimbingDone>();
         rb = GetComponent<Rigidbody>();
+        source = GetComponent<AudioSource>();
         rb.freezeRotation = true;
         readyToJump = true;
         startYScale = transform.localScale.y;
@@ -175,6 +178,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StartDash()
     {
+        source.PlayOneShot(clips[0]);
         dashDirection.y = 0f;
         dashDirection.Normalize();
         dashing = true;
