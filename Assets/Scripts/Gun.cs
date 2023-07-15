@@ -22,11 +22,15 @@ public class Gun : MonoBehaviour
     private Rigidbody gunRb;
     public float swayAmount = 0.05f;
     public float swaySpeed = 2f;
+    public AudioSource audioSource;
+    public AudioClip[] clips;
 
     private void Start()
     {
         gunRb = GetComponent<Rigidbody>();
         currentAmmo = magazineCapacity;
+        audioSource=GetComponent<AudioSource>();
+
     }
 
     private void Update()
@@ -70,6 +74,7 @@ public class Gun : MonoBehaviour
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
                 muzzleFlash.Play();
+                audioSource.PlayOneShot(clips[0]);
                 Debug.Log(hit.transform.name);
                 Enemy enemy = hit.transform.GetComponent<Enemy>();
                 if (enemy != null)
@@ -78,6 +83,7 @@ public class Gun : MonoBehaviour
                     if (enemy.health <= 0)
                     {
                         GameObject dieEffectGO = Instantiate(dieEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                        audioSource.PlayOneShot(clips[1]);
                     }
                 }
                 if (hit.rigidbody != null)
