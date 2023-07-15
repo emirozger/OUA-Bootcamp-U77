@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
-    public Transform spawnPoint;
+    public Transform[] spawnPoints;
     public float timeBetweenWaves = 5f;
     public float timeBetweenEnemies = 1f;
     public int[] enemiesPerWave;
@@ -46,15 +46,15 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenWaves);
         }
 
-        
-        // bütün waveler bitti win ekranı.
-        
+        // Bütün waveler bitti, win ekranı.
+
     }
 
     private void SpawnEnemy()
     {
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
         GameObject enemyPrefab = enemyPrefabs[randomIndex];
+        Transform spawnPoint = GetRandomSpawnPoint();
         GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
         Enemy enemyComponent = enemyObject.GetComponent<Enemy>();
@@ -62,6 +62,12 @@ public class WaveManager : MonoBehaviour
         {
             enemyComponent.OnDeath += EnemyDeathHandler;
         }
+    }
+
+    private Transform GetRandomSpawnPoint()
+    {
+        int randomIndex = Random.Range(0, spawnPoints.Length);
+        return spawnPoints[randomIndex];
     }
 
     private void EnemyDeathHandler(Enemy enemy)

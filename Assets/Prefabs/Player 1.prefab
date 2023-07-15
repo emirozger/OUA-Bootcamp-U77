@@ -389,7 +389,6 @@ GameObject:
   - component: {fileID: 6893918969597687574}
   - component: {fileID: 6893918969597687573}
   - component: {fileID: 6893918969597687572}
-  - component: {fileID: 6893918969597687577}
   - component: {fileID: 6893918969597687576}
   - component: {fileID: 6893918969597687578}
   - component: {fileID: 4144644680126717803}
@@ -488,6 +487,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 384
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1920
   grounded: 0
   maxSlopeAngle: 40
   climbingScript: {fileID: 6893918969597687575}
@@ -620,55 +622,6 @@ MonoBehaviour:
   slideForce: 200
   slideYScale: 0.5
   slideKey: 306
---- !u!114 &6893918969597687577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893918969597687594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55cd6f8190ade804697e50f7438a21e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 6893918968916125004}
-  rb: {fileID: 6893918969597687592}
-  pm: {fileID: 6893918969597687571}
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 384
-  climbSpeed: 3
-  maxClimbTime: 0.75
-  climbJumpUpForce: 15
-  climbJumpBackForce: 15
-  jumpKey: 32
-  climbJumps: 1
-  detectionLength: 0.7
-  sphereCastRadius: 0.25
-  maxWallLookAngle: 30
-  minWallNormalAngleChange: 5
-  exitingWall: 0
-  exitWallTime: 0.2
-  cam: {fileID: 0}
-  moveToLedgeSpeed: 12
-  ledgeJumpForwardForce: 14
-  ledgeJumpUpForce: 6
-  maxLedgeJumpUpSpeed: 7
-  maxLedgeGrabDistance: 2
-  minTimeOnLedge: 0.5
-  ledgeDetectionLength: 3
-  ledgeSphereCastRadius: 0.5
-  whatIsLedge:
-    serializedVersion: 2
-    m_Bits: 512
-  currLedge: {fileID: 0}
-  vaultDetectionLength: 1.2
-  topReached: 0
-  vaultClimbSpeed: 10
-  vaultJumpForwardForce: 20
-  vaultJumpUpForce: 12
-  vaultCooldown: 1
 --- !u!114 &6893918969597687576
 MonoBehaviour:
   m_ObjectHideFlags: 0

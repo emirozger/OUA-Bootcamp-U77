@@ -54,6 +54,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
+    public LayerMask obstacleLayer;
     public bool grounded;
 
     [Header("Slope Handling")]
@@ -63,7 +64,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("References")]
     public Climbing climbingScript;
-    private ClimbingDone climbingScriptDone;
     public PlayerCam cam;
 
     public Transform orientation;
@@ -106,7 +106,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     #endregion
     private void Start()
     {
-        climbingScriptDone = GetComponent<ClimbingDone>();
         rb = GetComponent<Rigidbody>();
         source = GetComponent<AudioSource>();
         rb.freezeRotation = true;
@@ -122,7 +121,21 @@ public class PlayerMovementAdvanced : MonoBehaviour
         MyInput();
         SpeedControl();
         StateHandler();
+        LastDash();
 
+        if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
+    }
+
+    private void FixedUpdate()
+
+    {
+        MovePlayer();
+    }
+    private void LastDash()
+    {
         if (Input.GetKeyDown(dashKey) && grounded)
         {
             if (dashReady && !dashing)
@@ -163,16 +176,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
                     DashForward();
             }
         }
-
-        if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
-    }
-
-    private void FixedUpdate()
-    {
-        MovePlayer();
     }
     private void DashLeft()
     {
@@ -250,17 +253,27 @@ public class PlayerMovementAdvanced : MonoBehaviour
         dashing = true;
         dashReady = false;
 
-        transform.DOMove(transform.position + dashDirection * dashDistance, dashDuration)
-          .SetEase(Ease.OutQuad)
-          .OnComplete(StopDash)
-          .SetDelay(dashCooldown);
+        RaycastHit hit;
+        Vector3 dashDestination = transform.position + dashDirection * dashDistance;
 
-        cam.DoFov(90,.5f);
-        
+        if (Physics.Raycast(transform.position, dashDirection, out hit, dashDistance, obstacleLayer))
+        {
+            dashDestination = hit.point;
+            
+            //StopDash();
+        }
+
+        transform.DOMove(dashDestination, dashDuration)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(StopDash)
+            .SetDelay(dashCooldown);
+
+        cam.DoFov(90, .5f);
+
         cam.transform.DOShakePosition(dashShakeDuration, dashShakeStrength);
-
-
     }
+
+
     private void ResetDashCooldown()
     {
         dashReady = true;
@@ -448,7 +461,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void MovePlayer()
     {
         if (climbingScript.exitingWall) return;
-        if (climbingScriptDone.exitingWall) return;
         if (restricted) return;
 
 

@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 302b66e93badca84e8d213361373ec0b, type: 2}
+--- !u!1 &48446570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48446571}
+  m_Layer: 0
+  m_Name: SpawnPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &48446571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48446570}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -30.5, y: 0, z: 21.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &92360067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -781,7 +812,7 @@ GameObject:
   - component: {fileID: 1010775800}
   - component: {fileID: 1010775801}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: WaveSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -816,10 +847,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 831763228691890822, guid: 7893a62e32f501244adf95d152d9505f, type: 3}
-  spawnPoint: {fileID: 1033555442}
+  spawnPoints:
+  - {fileID: 1033555442}
+  - {fileID: 1255130393}
+  - {fileID: 48446571}
+  - {fileID: 1401481605}
   timeBetweenWaves: 5
   timeBetweenEnemies: 1
-  enemiesPerWave: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  enemiesPerWave: 0500000006000000070000000800000004000000090000000c00000008000000090000000a000000
 --- !u!1 &1033555441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,6 +1182,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252355244}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1255130392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255130393}
+  m_Layer: 0
+  m_Name: SpawnPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1255130393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255130392}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 20.400002, y: 0, z: 21.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1260383548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,6 +1445,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372657542}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1401481604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1401481605}
+  m_Layer: 0
+  m_Name: SpawnPoint (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1401481605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401481604}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -30.5, y: 0, z: -26.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419816764
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,6 +2131,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1260383549}
     - target: {fileID: 3648777928929147838, guid: f6749336810549649a7ac92f465e6aee, type: 3}
+      propertyPath: magazineCapacity
+      value: 9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648777928929147838, guid: f6749336810549649a7ac92f465e6aee, type: 3}
       propertyPath: playerMovementAdvanced
       value: 
       objectReference: {fileID: 4144644680126717795}
@@ -2090,10 +2191,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 326593165101518362}
     - target: {fileID: 6893918969597687576, guid: 30059e32987252746a48568301cf3153, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 326593165101518362}
-    - target: {fileID: 6893918969597687577, guid: 30059e32987252746a48568301cf3153, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 326593165101518362}
