@@ -64,7 +64,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public PlayerCam cam;
 
     public Transform orientation;
-
+    public Vector3 startPos;
     public float horizontalInput;
     public float verticalInput;
 
@@ -109,6 +109,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true;
         startYScale = transform.localScale.y;
+      
     }
 
     private void Update()
@@ -454,5 +455,12 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         float mult = Mathf.Pow(10.0f, (float)digits);
         return Mathf.Round(value * mult) / mult;
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Respawn"))
+        {
+            transform.position = startPos;
+        }
     }
 }

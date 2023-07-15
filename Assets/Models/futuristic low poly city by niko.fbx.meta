@@ -3,7 +3,52 @@ guid: f48af1b9968f51a42ba94d1202ba9817
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrier
+    second: {fileID: 2100000, guid: c0ba0f16005a54f40b50ddf4ca28b99b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blue
+    second: {fileID: 2100000, guid: 3ee3cf5e52d744e45ad9fe8232fb2e6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: copper
+    second: {fileID: 2100000, guid: bef3277dfbc29544ba0271f2499ccdfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: energy
+    second: {fileID: 2100000, guid: 356cfec6e8f932a4b9aac2380963e1d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gray
+    second: {fileID: 2100000, guid: 928cb0627d590034a962810d70d83487, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: green
+    second: {fileID: 2100000, guid: 955983559bd705148af87d178e4b6e8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lights
+    second: {fileID: 2100000, guid: ac554729ebefeca498655717f9381a55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metalic dark gray
+    second: {fileID: 2100000, guid: 95853b1bfdc2fa94097bc9f4905b61fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metalic light gray
+    second: {fileID: 2100000, guid: 63760a8a078e19f4fa9c269f8eb98d3b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
