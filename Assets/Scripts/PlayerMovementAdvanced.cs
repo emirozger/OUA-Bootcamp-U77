@@ -49,7 +49,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public KeyCode dashKey = KeyCode.E;
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode crouchKey = KeyCode.C;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -259,7 +259,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (Physics.Raycast(transform.position, dashDirection, out hit, dashDistance, obstacleLayer))
         {
             dashDestination = hit.point;
-            
+
             //StopDash();
         }
 
@@ -300,7 +300,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
+        if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0 && !sliding)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);

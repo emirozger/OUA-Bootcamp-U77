@@ -35,11 +35,11 @@ public class Sliding : MonoBehaviour
 
     private void Update()
     {
-       
+
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0) && !pm.crouching)
             StartSlide();
 
         if (Input.GetKeyUp(slideKey) && pm.sliding)
@@ -48,7 +48,7 @@ public class Sliding : MonoBehaviour
 
     private void FixedUpdate()
     {
-       
+
         if (pm.sliding)
             SlidingMovement();
     }
@@ -69,8 +69,8 @@ public class Sliding : MonoBehaviour
     {
         Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-       
-        if(!pm.OnSlope() || rb.velocity.y > -0.1f)
+
+        if (!pm.OnSlope() || rb.velocity.y > -0.1f)
         {
             rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
 

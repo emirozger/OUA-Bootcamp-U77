@@ -389,10 +389,8 @@ GameObject:
   - component: {fileID: 6893918969597687574}
   - component: {fileID: 6893918969597687573}
   - component: {fileID: 6893918969597687572}
-  - component: {fileID: 6893918969597687576}
-  - component: {fileID: 6893918969597687578}
-  - component: {fileID: 4144644680126717803}
   - component: {fileID: 4144644680126717804}
+  - component: {fileID: 4144644680126717803}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Player
@@ -622,69 +620,19 @@ MonoBehaviour:
   slideForce: 200
   slideYScale: 0.5
   slideKey: 306
---- !u!114 &6893918969597687576
+--- !u!114 &4144644680126717804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6893918969597687594}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d163dffd67f44643b66e0c332c6c45e, type: 3}
+  m_Script: {fileID: 11500000, guid: 805f58b7f5950024890fbd27985cadb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orientation: {fileID: 6893918968916125004}
-  cam: {fileID: 0}
-  jumpKey: 32
-  moveToLedgeSpeed: 12
-  ledgeJumpForwardForce: 14
-  ledgeJumpUpForce: 5
-  maxLedgeGrabDistance: 2
-  minTimeOnLedge: 0.5
-  holding: 0
-  ledgeDetectionLength: 3
-  ledgeSphereCastRadius: 0.5
-  whatIsLedge:
-    serializedVersion: 2
-    m_Bits: 512
-  currLedge: {fileID: 0}
-  exitingLedge: 0
-  exitLedgeTime: 0.2
---- !u!114 &6893918969597687578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893918969597687594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98a77be5935253545b53109bb099d639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 0
-  sprintSpeed: 0
-  dashSpeed: 0
-  dashSpeedChangeFactor: 0
-  maxYSpeed: 0
-  groundDrag: 0
-  jumpForce: 0
-  jumpCooldown: 0
-  airMultiplier: 0
-  crouchSpeed: 0
-  crouchYScale: 0
-  jumpKey: 32
-  sprintKey: 304
-  crouchKey: 306
-  playerHeight: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  maxSlopeAngle: 0
-  orientation: {fileID: 0}
-  state: 0
-  dashing: 0
+  playerHealth: 1000
 --- !u!82 &4144644680126717803
 AudioSource:
   m_ObjectHideFlags: 0
@@ -781,19 +729,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4144644680126717804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893918969597687594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805f58b7f5950024890fbd27985cadb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: 1000
 --- !u!1 &8516867863148133082
 GameObject:
   m_ObjectHideFlags: 0

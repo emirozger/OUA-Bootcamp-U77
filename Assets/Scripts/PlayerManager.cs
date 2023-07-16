@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
 
         if (playerHealth <= 0) 
         {
+            //die
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

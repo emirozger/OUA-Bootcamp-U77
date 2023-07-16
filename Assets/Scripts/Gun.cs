@@ -117,6 +117,8 @@ public class Gun : MonoBehaviour
         {
             currentAmmo--;
             ApplyRecoil();
+            muzzleFlash.Play();
+            audioSource.PlayOneShot(clips[0]);
             if (IsMoving() || isFiring || IsMoving() && isFiring)
             {
                 // Geri tepme (spray) mekaniği
