@@ -218,13 +218,13 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  health: 120
+  health: 60
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 0.5
   projectilePrefab: {fileID: 830170120304019184, guid: 178b1b8c6cd689c45801d739399c023e, type: 3}
-  sightRange: 20
-  attackRange: 12
+  sightRange: 30
+  attackRange: 20
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!195 &831763228691890823
