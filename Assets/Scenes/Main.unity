@@ -206,7 +206,7 @@ MonoBehaviour:
     audioSource: {fileID: 0}
     name: Dash
     volume: 0.05
-    pitch: 1.35
+    pitch: 1.7
     loop: 0
   - clip: {fileID: 8300000, guid: 239b18edf63877b45a894798f70d710a, type: 3}
     audioSource: {fileID: 0}
@@ -753,7 +753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &802719368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,7 +1034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1010775800
 Transform:
   m_ObjectHideFlags: 0
