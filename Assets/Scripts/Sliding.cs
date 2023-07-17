@@ -56,7 +56,7 @@ public class Sliding : MonoBehaviour
     private void StartSlide()
     {
         if (pm.wallrunning) return;
-
+        AudioManager.Instance.Play("Sliding");
         pm.sliding = true;
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
@@ -89,7 +89,7 @@ public class Sliding : MonoBehaviour
     private void StopSlide()
     {
         pm.sliding = false;
-
+        AudioManager.Instance.Stop("Sliding");
         playerObj.localScale = new Vector3(playerObj.localScale.x, startYScale, playerObj.localScale.z);
     }
 }

@@ -17,14 +17,12 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
+    public GameObject bloodEffectPrefab;
     public GameObject dieEffect;
     public float recoilDuration = 0.1f;
     public Vector3 recoilForce;
     private Rigidbody gunRb;
     public float sprayAmount = 0.05f;
-    public AudioSource audioSource;
-    public AudioClip[] clips;
-
     public TMP_Text ammoText;
     public PlayerMovementAdvanced playerMovementAdvanced;
     Vector3 bulletDirection;
@@ -39,7 +37,6 @@ public class Gun : MonoBehaviour
         playerMovementAdvanced = GameObject.Find("Player").GetComponent<PlayerMovementAdvanced>();
         gunRb = GetComponent<Rigidbody>();
         currentAmmo = magazineCapacity;
-        audioSource = GetComponent<AudioSource>();
         UpdateAmmoText();
     }
 
@@ -102,7 +99,7 @@ public class Gun : MonoBehaviour
     {
         isReloading = true;
         Debug.Log("Reloading...");
-        audioSource.PlayOneShot(clips[2]);
+        AudioManager.Instance.PlayOneShot("Reloading");
         //clip 2.79 saniye. başka bulursam değiştir.
         yield return new WaitForSeconds(2.79f);
         currentAmmo = magazineCapacity;
@@ -118,7 +115,7 @@ public class Gun : MonoBehaviour
             currentAmmo--;
             ApplyRecoil();
             muzzleFlash.Play();
-            audioSource.PlayOneShot(clips[0]);
+            AudioManager.Instance.PlayOneShot("Shooting");
             if (IsMoving() || isFiring || IsMoving() && isFiring)
             {
                 // Geri tepme (spray) mekaniği
@@ -136,21 +133,28 @@ public class Gun : MonoBehaviour
             if (Physics.Raycast(bulletRay, out hit, range))
             {
                 muzzleFlash.Play();
-                audioSource.PlayOneShot(clips[0]);
+                AudioManager.Instance.PlayOneShot("Shooting");
                 Debug.Log(hit.transform.name);
                 Enemy enemy = hit.transform.GetComponent<Enemy>();
                 if (enemy != null)
                 {
                     enemy.TakeDamage(damage);
+                    //GameObject bloodEffect = Instantiate(bloodEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
                     if (enemy.health <= 0)
                     {
                         GameObject dieEffectGO = Instantiate(dieEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                        audioSource.PlayOneShot(clips[1]);
+                        AudioManager.Instance.PlayOneShot("EnemyDead");
                     }
                 }
                 if (hit.rigidbody != null)
                 {
+                    Debug.Log("enemyRB ");
                     hit.rigidbody.AddForce(-hit.normal * impactForce);
+                    /*
+                    Vector3 fallDirection = bulletDirection.normalized;
+                    float fallForce = impactForce * .5f; 
+                    hit.rigidbody.AddForce(-fallDirection * fallForce, ForceMode.Impulse);
+                    */
                 }
                 GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(impactGO, 2f);

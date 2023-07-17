@@ -74,9 +74,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-    public AudioSource source;
-    public AudioClip[] clips;
-
     public MovementState state;
     public enum MovementState
     {
@@ -102,12 +99,12 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool unlimited;
 
     public bool restricted;
+    bool wasGrounded = false;
 
     #endregion
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        source = GetComponent<AudioSource>();
         rb.freezeRotation = true;
         readyToJump = true;
         startYScale = transform.localScale.y;
@@ -117,7 +114,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
+        if (!wasGrounded && grounded)
+        {
+            AudioManager.Instance.PlayOneShot("Grounded");
+        }
+        wasGrounded = grounded;
         MyInput();
         SpeedControl();
         StateHandler();
@@ -247,7 +248,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     }
     private void StartDash()
     {
-        source.PlayOneShot(clips[0]);
+        AudioManager.Instance.PlayOneShot("Dash");
         dashDirection.y = 0f;
         dashDirection.Normalize();
         dashing = true;
@@ -272,8 +273,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         cam.transform.DOShakePosition(dashShakeDuration, dashShakeStrength);
     }
-
-
     private void ResetDashCooldown()
     {
         dashReady = true;
@@ -365,8 +364,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             cam.DoFov(90, 1);
             state = MovementState.sliding;
-
-
             if (OnSlope() && rb.velocity.y < 0.1f)
             {
                 desiredMoveSpeed = slideSpeed;
@@ -407,7 +404,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
             state = MovementState.air;
 
             if (moveSpeed < airMinSpeed)
+            {
                 desiredMoveSpeed = airMinSpeed;
+            }
+
         }
 
         bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
@@ -511,8 +511,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Jump()
     {
+        AudioManager.Instance.PlayOneShot("Jump");
         exitingSlope = true;
-
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
