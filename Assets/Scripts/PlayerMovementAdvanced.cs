@@ -137,7 +137,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     }
     private void LastDash()
     {
-        if (Input.GetKeyDown(dashKey) && grounded)
+        if (Input.GetKeyDown(dashKey))
         {
             if (dashReady && !dashing)
             {
@@ -269,7 +269,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             .OnComplete(StopDash)
             .SetDelay(dashCooldown);
 
-        cam.DoFov(90, .5f);
+        //cam.DoFov(90, .5f);
 
         cam.transform.DOShakePosition(dashShakeDuration, dashShakeStrength);
     }
