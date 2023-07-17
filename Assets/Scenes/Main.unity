@@ -1071,7 +1071,7 @@ MonoBehaviour:
   - {fileID: 1401481605}
   timeBetweenWaves: 1
   timeBetweenEnemies: 0.1
-  enemiesPerWave: 0100000002000000030000000400000005000000320000003c00000046000000500000005a000000
+  enemiesPerWave: 3200000002000000030000000400000005000000320000003c00000046000000500000005a000000
   healthMultiplierPerWave: 1.1
   attackRangeMultiplierPerWave: 1.03
   sightRangeMultiplierPerWave: 1.03
