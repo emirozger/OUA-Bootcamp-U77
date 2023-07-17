@@ -16,6 +16,7 @@ public class WaveManager : MonoBehaviour
     public float healthMultiplierPerWave = 1.1f;
     public float attackRangeMultiplierPerWave = 1.1f;
     public float sightRangeMultiplierPerWave = 1.1f;
+    public float enemiesKilledThreshold;
 
 
 
@@ -64,21 +65,21 @@ public class WaveManager : MonoBehaviour
 
 
     private void SpawnEnemy(float healthMultiplier, float attackRangeMultiplier, float sightRangeMultiplier)
-{
-    int randomIndex = Random.Range(0, enemyPrefabs.Length);
-    GameObject enemyPrefab = enemyPrefabs[randomIndex];
-    Transform spawnPoint = GetRandomSpawnPoint();
-    GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
-    Enemy enemy = enemyObject.GetComponent<Enemy>();
-    if (enemy != null)
     {
-        enemy.OnDeath += EnemyDeathHandler;
-        enemy.health *= healthMultiplier;
-        enemy.attackRange *= attackRangeMultiplier;
-        enemy.sightRange *= sightRangeMultiplier;
+        int randomIndex = Random.Range(0, enemyPrefabs.Length);
+        GameObject enemyPrefab = enemyPrefabs[randomIndex];
+        Transform spawnPoint = GetRandomSpawnPoint();
+        GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        Enemy enemy = enemyObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.OnDeath += EnemyDeathHandler;
+            enemy.health *= healthMultiplier;
+            enemy.attackRange *= attackRangeMultiplier;
+            enemy.sightRange *= sightRangeMultiplier;
+        }
     }
-}
 
 
 
@@ -92,6 +93,13 @@ public class WaveManager : MonoBehaviour
     private void EnemyDeathHandler(Enemy enemy)
     {
         enemiesKilled++;
+        enemiesKilledThreshold++;
+        if (enemiesKilledThreshold == 3)
+        {
+            enemiesKilledThreshold = 0f;
+            PlayerManager.Instance.playerHealth += 50;
+        }
+
         enemy.OnDeath -= EnemyDeathHandler;
     }
 
