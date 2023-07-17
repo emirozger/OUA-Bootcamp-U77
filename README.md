@@ -184,12 +184,12 @@ Alınan kararlar:
   ![Screenshot 3](https://github.com/emirozger/OUA-Bootcamp-U77/blob/45c2227ddde273e66a891bd410767a438fb97a2d/ProjectManagement/Sprint-3/sprint3durum2.png)
 
 
-- **Sprint Review**: 
-  -Alınan kararlar:
-  -Multiplayer sisteminin zorluğundan dolayı singleplayer a geçmek.
-  -Kullanıcı arayüzleri ve kodlamaları yapılacak.
-  -Level design yapılacak.
-  -Bug Fixler yapılacak.
+- **Sprint Review**:
+- Alınan kararlar:
+  - Multiplayer sisteminin zorluğundan dolayı singleplayer a geçmek.
+  - Kullanıcı arayüzleri ve kodlamaları yapılacak.
+  - Level design yapılacak.
+  - Bug Fixler yapılacak.
   
 Sprint Review katılımcıları: Cengizhan Dursun,Emirhan Özger
 
