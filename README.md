@@ -152,3 +152,54 @@ Alınan kararlar:
 [Unity Team 77 Trello Backlog Board](https://trello.com/invite/b/VHaqB6Eu/ATTI577cbdb34dabdfe515fe33bfa11907b58C1D3534/ingame)
 
 ---
+# Sprint 3
+
+- **Sprint içinde tamamlanması tahmin edilen puan**: Birinci ve ikinci sprintten kalan 123 puanın da eklenmesiyle bu sprint için toplam puan: 223'tür.
+ **Puan tamamlama mantığı**: 2. Sprint için yapılması gereken puan : 223
+- Oyun Fikri Planlaması 10 puan : 10
+- Oyun Hikayesi 10 puan : 0
+- Mekanik düşünceleri 10 puan : 10
+- GDD Yazımı 10 puan : 0
+- Oyun Tasarımı 20 puan : 18
+- Level Design 20 puan : 20
+- Karakter Kontrolleri 30 puan: 30
+- Karakter model ve animasyonları 40 puan : 40
+- Multiplayer Network 30 puan : 0
+- Wave System 30 puan : 30
+- VFX 20 puan : 15
+- SFX 15 puan : 10
+- Post Processing 25 puan : 25
+- Optimizasyon 30 puan : 10
+- Test ve Hata Ayıklama 50 puan : 40
+
+- **Daily Scrum**: Daily Scrum toplantılarının discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır: [Sprint 3 Daily Scrum Chats](https://github.com/emirozger/OUA-Bootcamp-U77/blob/05546726e468d6e6013cb408a0877b3e88fc2091/ProjectManagement/Sprint-3/Sprint3Discord.png)
+
+- **Sprint board update**: Sprint board screenshotları: 
+![Backlog 1](https://github.com/emirozger/OUA-Bootcamp-U77/blob/05546726e468d6e6013cb408a0877b3e88fc2091/ProjectManagement/Sprint-3/Sprint3Trello.png) 
+
+
+- **Ürün Durumu**: Ekran görüntüleri:
+  ![Screenshot 1](https://github.com/emirozger/OUA-Bootcamp-U77/blob/45c2227ddde273e66a891bd410767a438fb97a2d/ProjectManagement/Sprint-3/sprint3durum0.png)
+  ![Screenshot 2](https://github.com/emirozger/OUA-Bootcamp-U77/blob/45c2227ddde273e66a891bd410767a438fb97a2d/ProjectManagement/Sprint-3/sprint3durum1.png)
+  ![Screenshot 3](https://github.com/emirozger/OUA-Bootcamp-U77/blob/45c2227ddde273e66a891bd410767a438fb97a2d/ProjectManagement/Sprint-3/sprint3durum2.png)
+
+
+- **Sprint Review**: 
+  -Alınan kararlar:
+  -Multiplayer sisteminin zorluğundan dolayı singleplayer a geçmek.
+  -Kullanıcı arayüzleri ve kodlamaları yapılacak.
+  -Level design yapılacak.
+  -Bug Fixler yapılacak.
+  
+Sprint Review katılımcıları: Cengizhan Dursun,Emirhan Özger
+
+- **Sprint Retrospective:**
+
+  - Takım üyelerinin gelecek projelerde daha fazla aktif olması gerektiğine vurgu yapılmıştır.
+
+---
+## Juriye Not
+- Oyunda multiplayer deathmatch fps sisteminden singleplayer wave system fps e geçildi.
+- Gerekli ilgi takım tarafından gelmedi.
+- Keyifli oynanış ile keyifli oynamalar :)
+---
