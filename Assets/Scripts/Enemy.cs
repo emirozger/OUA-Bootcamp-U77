@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public Animator animator;
     public event Action<Enemy> OnDeath;
 
     public Transform player;
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
 
 
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
+    public bool alreadyAttacked;
     public GameObject projectilePrefab;
 
 
@@ -34,17 +35,23 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("PlayerObj").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
     }
 
     private void Update()
     {
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (!playerInSightRange && !playerInAttackRange && health != 0) Patroling();
+        if (playerInSightRange && !playerInAttackRange && health != 0) ChasePlayer();
+        if (playerInAttackRange && playerInSightRange && health != 0) AttackPlayer();
+
+
+
+
     }
 
     private void Patroling()
@@ -53,6 +60,8 @@ public class Enemy : MonoBehaviour
 
         if (walkPointSet)
             agent.SetDestination(walkPoint);
+        animator.SetBool("Patroling", true);
+        animator.SetBool("Shooting", false);
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
@@ -73,6 +82,8 @@ public class Enemy : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        animator.SetBool("Patroling", true);
+        animator.SetBool("Shooting", false);
     }
 
     private void AttackPlayer()
@@ -83,13 +94,21 @@ public class Enemy : MonoBehaviour
 
         if (!alreadyAttacked)
         {
+            animator.SetBool("Patroling", false);
+            animator.SetBool("Shooting", true);
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.LookRotation(transform.forward));
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-            rb.AddForce(transform.forward * 48f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 2f, ForceMode.Impulse);
+            float forwardForce = 40f;
+            float upwardForce = 6f;
 
-            
+            Vector3 forwardDirection = transform.forward;
+            forwardDirection.y = 0f;
+            forwardDirection.Normalize();
+            rb.AddForce(forwardDirection * forwardForce, ForceMode.Impulse);
+
+            Vector3 upwardDirection = transform.up;
+            rb.AddForce(upwardDirection * upwardForce, ForceMode.Impulse);
 
 
             alreadyAttacked = true;
@@ -109,15 +128,20 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            Die(); 
+            health = 0;
+            Die();
         }
-            
+
     }
     private void Die()
     {
         OnDeath?.Invoke(this); // Ölüm olayını tetikle
 
-        Destroy(gameObject);
+        playerInAttackRange = false;
+        this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        alreadyAttacked = false;
+        animator.SetTrigger("Die");
+        Destroy(gameObject, 3.5f);
     }
 
     private void OnDrawGizmosSelected()

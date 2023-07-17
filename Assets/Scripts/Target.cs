@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    //bu script yüksek iht kullanmıyom artık , sonra bak sil.
     public float health = 50f;
   
 

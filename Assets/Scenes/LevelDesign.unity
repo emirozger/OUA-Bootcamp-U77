@@ -2312,15 +2312,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1956041515864750135, guid: f6749336810549649a7ac92f465e6aee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -499.53622
+      value: -523.887
       objectReference: {fileID: 0}
     - target: {fileID: 1956041515864750135, guid: f6749336810549649a7ac92f465e6aee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000019073486
+      value: 14.128
       objectReference: {fileID: 0}
     - target: {fileID: 1956041515864750135, guid: f6749336810549649a7ac92f465e6aee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -222.90756
+      value: -219.06
       objectReference: {fileID: 0}
     - target: {fileID: 1956041515864750135, guid: f6749336810549649a7ac92f465e6aee, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2358,6 +2358,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 7843a4bd8edddd0429c1a11c920c5946, type: 2}
+    - target: {fileID: 3648777928929147838, guid: f6749336810549649a7ac92f465e6aee, type: 3}
+      propertyPath: playerMovementAdvanced
+      value: 
+      objectReference: {fileID: 2097024446}
     - target: {fileID: 7382319395462939368, guid: f6749336810549649a7ac92f465e6aee, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3152,6 +3156,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2911736426955009642, guid: 390c53d0ff30abb4d813398ec2652334, type: 3}
+--- !u!114 &2097024446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6893918969597687571, guid: 30059e32987252746a48568301cf3153, type: 3}
+  m_PrefabInstance: {fileID: 170384674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3261339f18983244a8d4c3ccd429b0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2134543720 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6763858364670572316, guid: 390c53d0ff30abb4d813398ec2652334, type: 3}

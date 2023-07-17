@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
-    public Transform spawnPoint;
+    public Transform[] spawnPoints;
     public float timeBetweenWaves = 5f;
     public float timeBetweenEnemies = 1f;
     public int[] enemiesPerWave;
@@ -13,6 +13,12 @@ public class WaveManager : MonoBehaviour
     private int enemiesSpawned = 0;
     private int enemiesKilled = 0;
     private bool waveInProgress = false;
+    public float healthMultiplierPerWave = 1.1f;
+    public float attackRangeMultiplierPerWave = 1.1f;
+    public float sightRangeMultiplierPerWave = 1.1f;
+
+
+
 
     private void Start()
     {
@@ -29,9 +35,14 @@ public class WaveManager : MonoBehaviour
             enemiesSpawned = 0;
             enemiesKilled = 0;
 
+            // Düşmanların özelliklerini zorlaştır
+            float healthMultiplier = Mathf.Pow(healthMultiplierPerWave, currentWave);
+            float attackRangeMultiplier = Mathf.Pow(attackRangeMultiplierPerWave, currentWave);
+            float sightRangeMultiplier = Mathf.Pow(sightRangeMultiplierPerWave, currentWave);
+
             while (enemiesSpawned < enemiesPerWave[currentWave])
             {
-                SpawnEnemy();
+                SpawnEnemy(healthMultiplier, attackRangeMultiplier, sightRangeMultiplier);
                 enemiesSpawned++;
                 yield return new WaitForSeconds(timeBetweenEnemies);
             }
@@ -46,22 +57,36 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenWaves);
         }
 
-        
-        // bütün waveler bitti win ekranı.
-        
+        // Bütün waveler bitti, win ekranı.
     }
 
-    private void SpawnEnemy()
-    {
-        int randomIndex = Random.Range(0, enemyPrefabs.Length);
-        GameObject enemyPrefab = enemyPrefabs[randomIndex];
-        GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
-        Enemy enemyComponent = enemyObject.GetComponent<Enemy>();
-        if (enemyComponent != null)
-        {
-            enemyComponent.OnDeath += EnemyDeathHandler;
-        }
+
+
+    private void SpawnEnemy(float healthMultiplier, float attackRangeMultiplier, float sightRangeMultiplier)
+{
+    int randomIndex = Random.Range(0, enemyPrefabs.Length);
+    GameObject enemyPrefab = enemyPrefabs[randomIndex];
+    Transform spawnPoint = GetRandomSpawnPoint();
+    GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
+    Enemy enemy = enemyObject.GetComponent<Enemy>();
+    if (enemy != null)
+    {
+        enemy.OnDeath += EnemyDeathHandler;
+        enemy.health *= healthMultiplier;
+        enemy.attackRange *= attackRangeMultiplier;
+        enemy.sightRange *= sightRangeMultiplier;
+    }
+}
+
+
+
+
+    private Transform GetRandomSpawnPoint()
+    {
+        int randomIndex = Random.Range(0, spawnPoints.Length);
+        return spawnPoints[randomIndex];
     }
 
     private void EnemyDeathHandler(Enemy enemy)

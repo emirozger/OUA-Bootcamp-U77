@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6893918967523938481}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -223,7 +223,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6893918968255145710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -236,7 +236,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 32a76832b79e84347ad9df08b12709c3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -389,9 +389,7 @@ GameObject:
   - component: {fileID: 6893918969597687574}
   - component: {fileID: 6893918969597687573}
   - component: {fileID: 6893918969597687572}
-  - component: {fileID: 6893918969597687577}
-  - component: {fileID: 6893918969597687576}
-  - component: {fileID: 6893918969597687578}
+  - component: {fileID: 4144644680126717804}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Player
@@ -468,26 +466,33 @@ MonoBehaviour:
   speedIncreaseMultiplier: 1.5
   slopeIncreaseMultiplier: 2.5
   groundDrag: 4
-  jumpForce: 12
+  jumpForce: 9
   jumpCooldown: 0.25
   airMultiplier: 0.4
   crouchSpeed: 3.5
   crouchYScale: 0.5
-  dashForce: 12
+  dashDistance: 8
+  dashDuration: 0.5
+  dashCooldown: 0.1
+  dashShakeDuration: 0.5
+  dashShakeStrength: 0.2
   dashKey: 101
-  dashCooldown: 3
   jumpKey: 32
   sprintKey: 304
-  crouchKey: 306
+  crouchKey: 99
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 384
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1920
   grounded: 0
   maxSlopeAngle: 40
   climbingScript: {fileID: 6893918969597687575}
   cam: {fileID: 0}
   orientation: {fileID: 6893918968916125004}
+  startPos: {x: 0, y: 0, z: 0}
   horizontalInput: 0
   verticalInput: 0
   state: 0
@@ -611,118 +616,19 @@ MonoBehaviour:
   slideForce: 200
   slideYScale: 0.5
   slideKey: 306
---- !u!114 &6893918969597687577
+--- !u!114 &4144644680126717804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6893918969597687594}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55cd6f8190ade804697e50f7438a21e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 805f58b7f5950024890fbd27985cadb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orientation: {fileID: 6893918968916125004}
-  rb: {fileID: 6893918969597687592}
-  pm: {fileID: 6893918969597687571}
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 384
-  climbSpeed: 3
-  maxClimbTime: 0.75
-  climbJumpUpForce: 15
-  climbJumpBackForce: 15
-  jumpKey: 32
-  climbJumps: 1
-  detectionLength: 0.7
-  sphereCastRadius: 0.25
-  maxWallLookAngle: 30
-  minWallNormalAngleChange: 5
-  exitingWall: 0
-  exitWallTime: 0.2
-  cam: {fileID: 0}
-  moveToLedgeSpeed: 12
-  ledgeJumpForwardForce: 14
-  ledgeJumpUpForce: 6
-  maxLedgeJumpUpSpeed: 7
-  maxLedgeGrabDistance: 2
-  minTimeOnLedge: 0.5
-  ledgeDetectionLength: 3
-  ledgeSphereCastRadius: 0.5
-  whatIsLedge:
-    serializedVersion: 2
-    m_Bits: 512
-  currLedge: {fileID: 0}
-  vaultDetectionLength: 1.2
-  topReached: 0
-  vaultClimbSpeed: 10
-  vaultJumpForwardForce: 20
-  vaultJumpUpForce: 12
-  vaultCooldown: 1
---- !u!114 &6893918969597687576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893918969597687594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d163dffd67f44643b66e0c332c6c45e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 6893918968916125004}
-  cam: {fileID: 0}
-  jumpKey: 32
-  moveToLedgeSpeed: 12
-  ledgeJumpForwardForce: 14
-  ledgeJumpUpForce: 5
-  maxLedgeGrabDistance: 2
-  minTimeOnLedge: 0.5
-  holding: 0
-  ledgeDetectionLength: 3
-  ledgeSphereCastRadius: 0.5
-  whatIsLedge:
-    serializedVersion: 2
-    m_Bits: 512
-  currLedge: {fileID: 0}
-  exitingLedge: 0
-  exitLedgeTime: 0.2
---- !u!114 &6893918969597687578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893918969597687594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98a77be5935253545b53109bb099d639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 0
-  sprintSpeed: 0
-  dashSpeed: 0
-  dashSpeedChangeFactor: 0
-  maxYSpeed: 0
-  groundDrag: 0
-  jumpForce: 0
-  jumpCooldown: 0
-  airMultiplier: 0
-  crouchSpeed: 0
-  crouchYScale: 0
-  jumpKey: 32
-  sprintKey: 304
-  crouchKey: 306
-  playerHeight: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  maxSlopeAngle: 0
-  orientation: {fileID: 0}
-  state: 0
-  dashing: 0
+  playerHealth: 1000
 --- !u!1 &8516867863148133082
 GameObject:
   m_ObjectHideFlags: 0

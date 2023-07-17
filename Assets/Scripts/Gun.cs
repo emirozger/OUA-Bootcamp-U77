@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using DG.Tweening;
 
 public class Gun : MonoBehaviour
@@ -16,32 +17,58 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
+    public GameObject bloodEffectPrefab;
     public GameObject dieEffect;
     public float recoilDuration = 0.1f;
     public Vector3 recoilForce;
     private Rigidbody gunRb;
-    public float swayAmount = 0.05f;
-    public float swaySpeed = 2f;
-    public AudioSource audioSource;
-    public AudioClip[] clips;
+    public float sprayAmount = 0.05f;
+    public TMP_Text ammoText;
+    public PlayerMovementAdvanced playerMovementAdvanced;
+    Vector3 bulletDirection;
+    public bool isFiring;
+    private bool isMouseDown = false;
+    private float holdTime = 0f;
+    private float requiredHoldTime = 0.2f;
+
 
     private void Start()
     {
+        playerMovementAdvanced = GameObject.Find("Player").GetComponent<PlayerMovementAdvanced>();
         gunRb = GetComponent<Rigidbody>();
         currentAmmo = magazineCapacity;
-        audioSource=GetComponent<AudioSource>();
-
+        UpdateAmmoText();
     }
 
     private void Update()
     {
+        Debug.Log(playerMovementAdvanced.horizontalInput != 0f || playerMovementAdvanced.verticalInput != 0f);
         if (isReloading)
             return;
+
+        if (Input.GetKeyDown(KeyCode.R) && currentAmmo < magazineCapacity)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
 
         if (currentAmmo <= 0)
         {
             StartCoroutine(Reload());
             return;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            isMouseDown = true;
+            holdTime = 0f;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isMouseDown = false;
+            if (holdTime >= requiredHoldTime)
+            {
+                isFiring = true;
+            }
         }
 
         if (Input.GetMouseButton(0) && Time.time >= nextTimeToFire)
@@ -50,17 +77,34 @@ public class Gun : MonoBehaviour
             Shoot();
             ApplyRecoil();
         }
+        if (isMouseDown)
+        {
+            holdTime += Time.deltaTime;
+            if (holdTime >= requiredHoldTime)
+            {
+                isFiring = true;
+            }
+            else
+            {
+                isFiring = false;
+            }
+        }
+        else
+        {
+            isFiring = false;
+        }
     }
 
     IEnumerator Reload()
     {
         isReloading = true;
         Debug.Log("Reloading...");
-
-        yield return new WaitForSeconds(1.5f);
-
+        AudioManager.Instance.PlayOneShot("Reloading");
+        //clip 2.79 saniye. başka bulursam değiştir.
+        yield return new WaitForSeconds(2.79f);
         currentAmmo = magazineCapacity;
         isReloading = false;
+        UpdateAmmoText();
         Debug.Log("Reloaded!");
     }
 
@@ -69,55 +113,70 @@ public class Gun : MonoBehaviour
         if (currentAmmo > 0)
         {
             currentAmmo--;
+            ApplyRecoil();
+            muzzleFlash.Play();
+            AudioManager.Instance.PlayOneShot("Shooting");
+            if (IsMoving() || isFiring || IsMoving() && isFiring)
+            {
+                // Geri tepme (spray) mekaniği
+                Vector2 recoil = Random.insideUnitCircle * sprayAmount;
+                Vector3 spray = new Vector3(recoil.x, 0f, recoil.y);
+                bulletDirection = (fpsCam.transform.forward + spray).normalized;
+            }
+            else if (!IsMoving())
+            {
+                bulletDirection = fpsCam.transform.forward;
+            }
 
+            Ray bulletRay = new Ray(fpsCam.transform.position, bulletDirection);
             RaycastHit hit;
-            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+            if (Physics.Raycast(bulletRay, out hit, range))
             {
                 muzzleFlash.Play();
-                audioSource.PlayOneShot(clips[0]);
+                AudioManager.Instance.PlayOneShot("Shooting");
                 Debug.Log(hit.transform.name);
                 Enemy enemy = hit.transform.GetComponent<Enemy>();
                 if (enemy != null)
                 {
                     enemy.TakeDamage(damage);
+                    //GameObject bloodEffect = Instantiate(bloodEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
                     if (enemy.health <= 0)
                     {
                         GameObject dieEffectGO = Instantiate(dieEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                        audioSource.PlayOneShot(clips[1]);
+                        AudioManager.Instance.PlayOneShot("EnemyDead");
                     }
                 }
                 if (hit.rigidbody != null)
                 {
+                    Debug.Log("enemyRB ");
                     hit.rigidbody.AddForce(-hit.normal * impactForce);
+                    /*
+                    Vector3 fallDirection = bulletDirection.normalized;
+                    float fallForce = impactForce * .5f; 
+                    hit.rigidbody.AddForce(-fallDirection * fallForce, ForceMode.Impulse);
+                    */
                 }
                 GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(impactGO, 2f);
             }
+
+            UpdateAmmoText();
         }
         else
         {
             Debug.Log("Out of ammo!");
         }
     }
-
+    bool IsMoving()
+    {
+        return playerMovementAdvanced.horizontalInput != 0f || playerMovementAdvanced.verticalInput != 0f;
+    }
+    void UpdateAmmoText()
+    {
+        ammoText.text = currentAmmo.ToString() + " / " + magazineCapacity.ToString();
+    }
     void ApplyRecoil()
     {
         transform.DOShakeRotation(recoilDuration, recoilForce, 10, 90f, false);
     }
-
-/*
-    void FixedUpdate()
-    {
-        //bunu koyarsam sway çalışmıyor.
-        if (gunRb != null && gunRb.isKinematic == false)
-        {
-            Debug.Log("sways");
-            float swayX = Mathf.Sin(Time.time * swaySpeed) * swayAmount;
-            float swayY = Mathf.Cos(Time.time * swaySpeed * 2f) * swayAmount;
-
-            Vector3 targetRotation = new Vector3(swayX, swayY, 0f);
-            transform.DOLocalRotate(targetRotation, 0.1f);
-        }
-    }
-*/
 }

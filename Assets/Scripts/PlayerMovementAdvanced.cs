@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMovementAdvanced : MonoBehaviour
 {
@@ -35,22 +36,25 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private float startYScale;
 
     [Header("Dashing")]
-    public float dashForce;
-    public KeyCode dashKey = KeyCode.E;
+    public float dashDistance;
+    public float dashDuration;
     public float dashCooldown = 3f;
-
     private bool dashing;
     private Vector3 dashDirection;
     private bool dashReady = true;
+    public float dashShakeDuration;
+    public float dashShakeStrength;
 
     [Header("Keybinds")]
+    public KeyCode dashKey = KeyCode.E;
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode crouchKey = KeyCode.C;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
+    public LayerMask obstacleLayer;
     public bool grounded;
 
     [Header("Slope Handling")]
@@ -60,7 +64,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("References")]
     public Climbing climbingScript;
-    private ClimbingDone climbingScriptDone;
     public PlayerCam cam;
 
     public Transform orientation;
@@ -71,9 +74,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-    public AudioSource source;
-    public AudioClip[] clips;
-
     public MovementState state;
     public enum MovementState
     {
@@ -99,46 +99,30 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool unlimited;
 
     public bool restricted;
+    bool wasGrounded = false;
 
     #endregion
     private void Start()
     {
-        climbingScriptDone = GetComponent<ClimbingDone>();
         rb = GetComponent<Rigidbody>();
-        source = GetComponent<AudioSource>();
         rb.freezeRotation = true;
         readyToJump = true;
         startYScale = transform.localScale.y;
-      
+
     }
 
     private void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
+        if (!wasGrounded && grounded)
+        {
+            AudioManager.Instance.PlayOneShot("Grounded");
+        }
+        wasGrounded = grounded;
         MyInput();
         SpeedControl();
         StateHandler();
-
-        if (Input.GetKeyDown(dashKey) && grounded)
-        {
-            if (!dashing && dashReady)
-            {
-                DashForward();
-                if (Input.GetKey(KeyCode.A))
-                {
-                    DashLeft();
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    DashRight();
-                }
-                else if (Input.GetKey(KeyCode.S))
-                {
-                    DashBackward();
-                }
-            }
-        }
+        LastDash();
 
         if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
             rb.drag = groundDrag;
@@ -147,45 +131,147 @@ public class PlayerMovementAdvanced : MonoBehaviour
     }
 
     private void FixedUpdate()
+
     {
         MovePlayer();
-        if (dashing)
+    }
+    private void LastDash()
+    {
+        if (Input.GetKeyDown(dashKey) && grounded)
         {
-            rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+            if (dashReady && !dashing)
+            {
+                if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+                {
+                    DashForwardRight();
+                }
+                else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+                {
+                    DashForwardLeft();
+                }
+                else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+                {
+                    DashBackwardLeft();
+                }
+                else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+                {
+                    DashBackwardRight();
+                }
+                else if (Input.GetKey(KeyCode.W))
+                {
+                    DashForward();
+                }
+                else if (Input.GetKey(KeyCode.A))
+                {
+                    DashLeft();
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    DashBackward();
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    DashRight();
+                }
+                else
+                    DashForward();
+            }
         }
     }
     private void DashLeft()
     {
-        dashDirection = -orientation.right;
-        StartDash();
+        if (!dashing)
+        {
+            dashDirection = -orientation.right;
+            StartDash();
+        }
     }
 
     private void DashRight()
     {
-        dashDirection = orientation.right;
-        StartDash();
+        if (!dashing)
+        {
+            dashDirection = orientation.right;
+            StartDash();
+        }
     }
 
     private void DashBackward()
     {
-        dashDirection = -orientation.forward;
-        StartDash();
+        if (!dashing)
+        {
+            dashDirection = -orientation.forward;
+            StartDash();
+        }
     }
     private void DashForward()
-    {
-        dashDirection = orientation.forward;
-        StartDash();
-    }
 
+
+    {
+        if (!dashing)
+        {
+            dashDirection = orientation.forward;
+            StartDash();
+        }
+    }
+    private void DashForwardLeft()
+    {
+        if (!dashing)
+        {
+            dashDirection = (orientation.forward - orientation.right).normalized;
+            StartDash();
+        }
+    }
+    private void DashBackwardRight()
+    {
+        if (!dashing)
+        {
+            dashDirection = (-orientation.forward + orientation.right).normalized;
+            StartDash();
+        }
+    }
+    private void DashBackwardLeft()
+    {
+        if (!dashing)
+        {
+            dashDirection = (-orientation.forward - orientation.right).normalized;
+            StartDash();
+        }
+    }
+    private void DashForwardRight()
+    {
+        if (!dashing)
+        {
+            dashDirection = (orientation.forward + orientation.right).normalized;
+            StartDash();
+        }
+    }
     private void StartDash()
     {
-        source.PlayOneShot(clips[0]);
+        AudioManager.Instance.PlayOneShot("Dash");
         dashDirection.y = 0f;
         dashDirection.Normalize();
         dashing = true;
         dashReady = false;
-        Invoke(nameof(StopDash), 0.5f);
-        Invoke(nameof(ResetDashCooldown), dashCooldown);
+
+        RaycastHit hit;
+        Vector3 dashDestination = transform.position + dashDirection * dashDistance;
+
+        if (Physics.Raycast(transform.position, dashDirection, out hit, dashDistance, obstacleLayer))
+        {
+            dashDestination = hit.point;
+
+            //StopDash();
+        }
+
+        transform.DOMove(dashDestination, dashDuration)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(StopDash)
+            .SetDelay(dashCooldown);
+
+        cam.DoFov(90, .5f);
+
+        cam.transform.DOShakePosition(dashShakeDuration, dashShakeStrength);
     }
     private void ResetDashCooldown()
     {
@@ -195,7 +281,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void StopDash()
     {
         dashing = false;
+        ResetDashCooldown();
     }
+
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -211,7 +299,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
+        if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0 && !sliding)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -244,7 +332,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
 
             state = MovementState.unlimited;
-            desiredMoveSpeed = 999f;
+            desiredMoveSpeed = 9f;
         }
 
 
@@ -276,8 +364,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             cam.DoFov(90, 1);
             state = MovementState.sliding;
-
-
             if (OnSlope() && rb.velocity.y < 0.1f)
             {
                 desiredMoveSpeed = slideSpeed;
@@ -318,7 +404,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
             state = MovementState.air;
 
             if (moveSpeed < airMinSpeed)
+            {
                 desiredMoveSpeed = airMinSpeed;
+            }
+
         }
 
         bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
@@ -372,7 +461,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     private void MovePlayer()
     {
         if (climbingScript.exitingWall) return;
-        if (climbingScriptDone.exitingWall) return;
         if (restricted) return;
 
 
@@ -423,8 +511,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Jump()
     {
+        AudioManager.Instance.PlayOneShot("Jump");
         exitingSlope = true;
-
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
