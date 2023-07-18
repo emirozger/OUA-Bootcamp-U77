@@ -18,7 +18,7 @@ MonoBehaviour:
       serializedVersion: 2
       rgba: 4294967295
   custom2:
-    graphic2: {r: 0, g: 0.6677432, b: 1, a: 1}
+    graphic2: {r: 0.41960785, g: 0.47843137, b: 0.627451, a: 1}
     text2:
       serializedVersion: 2
       rgba: 4294966499
