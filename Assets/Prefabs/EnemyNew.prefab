@@ -1998,7 +1998,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.5
   alreadyAttacked: 0
   projectilePrefab: {fileID: 830170120304019184, guid: 178b1b8c6cd689c45801d739399c023e, type: 3}
-  sightRange: 20
+  sightRange: 18
   attackRange: 12
   playerInSightRange: 0
   playerInAttackRange: 0
@@ -2031,7 +2031,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7726798146746007000}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 2be13e73fc92abf4c9c054b8633672bf, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35

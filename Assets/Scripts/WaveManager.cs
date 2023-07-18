@@ -9,18 +9,29 @@ public class WaveManager : MonoBehaviour
     public float timeBetweenWaves = 5f;
     public float timeBetweenEnemies = 1f;
     public int[] enemiesPerWave;
-    private int currentWave = 0;
-    private int enemiesSpawned = 0;
-    private int enemiesKilled = 0;
+    public int currentWave = 0;
+    public int enemiesSpawned = 0;
+    public int enemiesKilled = 0;
     private bool waveInProgress = false;
     public float healthMultiplierPerWave = 1.1f;
     public float attackRangeMultiplierPerWave = 1.1f;
     public float sightRangeMultiplierPerWave = 1.1f;
     public float enemiesKilledThreshold;
+    public static WaveManager Instance;
 
 
 
-
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         StartCoroutine(StartWave());
@@ -52,9 +63,9 @@ public class WaveManager : MonoBehaviour
             {
                 yield return null;
             }
-
             currentWave++;
             waveInProgress = false;
+            GameManager.Instance.currentWaveText.text = "Current Wave : " + (currentWave + 1).ToString() + " / " + enemiesPerWave.Length.ToString();
             yield return new WaitForSeconds(timeBetweenWaves);
         }
 

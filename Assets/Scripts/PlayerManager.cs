@@ -24,16 +24,16 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         playerHealth -= damage;
-
+        GameManager.Instance.healthText.text = "HEALTH : " + playerHealth.ToString();
         if (playerHealth <= 0)
         {
-            //die ui yaz
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameManager.Instance.Die();
         }
     }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.F5))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

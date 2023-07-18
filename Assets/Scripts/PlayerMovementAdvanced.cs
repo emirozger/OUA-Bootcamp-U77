@@ -289,7 +289,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
@@ -463,7 +462,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (climbingScript.exitingWall) return;
         if (restricted) return;
 
-
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
 
@@ -472,16 +470,23 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
 
             if (rb.velocity.y > 0)
+            {
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+            }
+
         }
 
 
         else if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
+        }
 
         else if (!grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
+
 
 
         if (!wallrunning) rb.useGravity = !OnSlope();
