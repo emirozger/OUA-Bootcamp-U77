@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6893918969597687593
 Transform:
   m_ObjectHideFlags: 0
@@ -629,6 +629,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: 1000
+  gun: {fileID: 0}
+  laser: {fileID: 0}
 --- !u!1 &8516867863148133082
 GameObject:
   m_ObjectHideFlags: 0
