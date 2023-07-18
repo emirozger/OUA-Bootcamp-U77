@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
         {
             
             collision.gameObject.GetComponent<PlayerManager>().TakeDamage(damage);
+            AudioManager.Instance.PlayOneShot("PlayerTakeHit");
             Destroy(gameObject);
         }
         //mermiyi karaktere atamazsa diye 2.5 saniye sonra yok ediyom. süreyi ayarlarım sonra.
