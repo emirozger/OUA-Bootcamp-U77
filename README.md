@@ -13,7 +13,7 @@ Takım Unity 77
 
 ## Ürün İsmi
 
---Velocity Vortex--
+- **LUMINEX**
 
 ## Product Backlog URL
 
@@ -191,7 +191,7 @@ Alınan kararlar:
   - Level design yapılacak.
   - Bug Fixler yapılacak.
   
-Sprint Review katılımcıları: Cengizhan Dursun,Emirhan Özger
+Sprint Review katılımcıları: Cengizhan Dursun,Emirhan Özger,Şaban Enes Burma
 
 - **Sprint Retrospective:**
 
